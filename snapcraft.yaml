@@ -1,0 +1,32 @@
+name: ponggame
+version: '1.0'
+summary: Classic Pong Game
+description: |
+  A classic Pong game featuring Player vs AI logic, developed in JavaFX.
+  Win by scoring 7 points!
+
+base: core22
+confinement: strict
+grade: stable
+
+apps:
+  ponggame:
+    command: java -jar $SNAP/ponggame-1.0.jar
+    extensions: [gnome]
+    plugs: [home, desktop, desktop-legacy, opengl, x11, wayland]
+    environment:
+      JAVA_HOME: $SNAP/usr/lib/jvm/java-17-openjdk-amd64
+      PATH: $JAVA_HOME/bin:$PATH
+
+parts:
+  ponggame:
+    plugin: dump
+    source: target/
+    stage:
+      - ponggame-1.0.jar
+    after: [java-runtime]
+
+  java-runtime:
+    plugin: nil
+    stage-packages:
+      - openjdk-17-jre

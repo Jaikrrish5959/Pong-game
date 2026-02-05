@@ -1,0 +1,74 @@
+/* Global Background */
+.root {
+    -fx-background-color: #1a1a2e;
+}
+
+/* Game Board Area */
+.game-root {
+    -fx-background-color: #1a1a2e;
+}
+
+/* Net (Center Line) */
+.net {
+    -fx-stroke: #4e4e50;
+    -fx-stroke-width: 2;
+    -fx-stroke-dash-array: 10 15;
+    -fx-opacity: 0.8;
+}
+
+/* Player Paddle (Left) */
+.paddle-player {
+    -fx-fill: #00fff5;
+    -fx-arc-width: 10;
+    -fx-arc-height: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 255, 245, 0.8), 10, 0, 0, 0);
+}
+
+/* AI Paddle (Right) */
+.paddle-ai {
+    -fx-fill: #ff005c;
+    -fx-arc-width: 10;
+    -fx-arc-height: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 92, 0.8), 10, 0, 0, 0);
+}
+
+/* Ball */
+.ball {
+    -fx-fill: #fff200;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 242, 0, 0.8), 10, 0, 0, 0);
+}
+
+/* Score Labels */
+.score-label {
+    -fx-text-fill: white;
+    -fx-font-family: "Monospaced";
+    -fx-font-weight: bold;
+    -fx-font-size: 50px;
+}
+
+.score-label-player {
+    -fx-text-fill: #00fff5;
+}
+
+.score-label-ai {
+    -fx-text-fill: #ff005c;
+}
+
+/* Overlay Messages */
+.message-overlay {
+    -fx-background-color: rgba(26, 26, 46, 0.8);
+}
+
+.main-message {
+    -fx-text-fill: white;
+    -fx-font-family: "Monospaced";
+    -fx-font-weight: bold;
+    -fx-font-size: 70px;
+    -fx-effect: dropshadow(three-pass-box, black, 5, 0, 0, 0);
+}
+
+.sub-message {
+    -fx-text-fill: #e94560;
+    -fx-font-family: "Monospaced";
+    -fx-font-size: 24px;
+}

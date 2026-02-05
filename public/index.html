@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Multiplayer Pong - Real-time 2-4 player Pong game with AI opponents">
+    <title>Multiplayer Pong</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="screen">
+        <div class="loader"></div>
+        <p>Connecting...</p>
+    </div>
+
+    <!-- Main Menu -->
+    <div id="menu-screen" class="screen hidden">
+        <div class="menu-container glass-panel">
+            <h1 class="title glow-text">MULTIPLAYER PONG</h1>
+            <p class="subtitle">Real-time 2-4 player arena</p>
+
+            <!-- Quick Play Section -->
+            <div class="menu-section">
+                <h2>Quick Play</h2>
+                <button id="btn-quick-2p" class="btn btn-primary pulse-glow">
+                    <span class="btn-icon">🎮</span>
+                    2 Players (vs AI)
+                </button>
+                <button id="btn-quick-4p" class="btn btn-secondary">
+                    <span class="btn-icon">👥</span>
+                    4 Players (vs AI)
+                </button>
+            </div>
+
+            <!-- Multiplayer Section -->
+            <div class="menu-section">
+                <h2>Multiplayer</h2>
+                <button id="btn-create-room" class="btn btn-accent">
+                    <span class="btn-icon">➕</span>
+                    Create Room
+                </button>
+                <div class="join-room-input">
+                    <input type="text" id="room-code-input" placeholder="Room Code" maxlength="6" class="input-field">
+                    <button id="btn-join-room" class="btn btn-accent">Join</button>
+                </div>
+            </div>
+
+            <!-- Advanced Setup -->
+            <button id="btn-advanced" class="btn btn-ghost">
+                ⚙️ Advanced Setup
+            </button>
+        </div>
+    </div>
+
+    <!-- Advanced Setup Screen -->
+    <div id="setup-screen" class="screen hidden">
+        <div class="setup-container glass-panel">
+            <button id="btn-back-menu" class="btn-back">← Back</button>
+            <h2 class="title">Game Setup</h2>
+
+            <!-- Game Mode -->
+            <div class="setup-option">
+                <label>Game Mode</label>
+                <div class="btn-group">
+                    <button class="btn-option active" data-mode="human_vs_ai">Human vs AI</button>
+                    <button class="btn-option" data-mode="human_vs_human">Human vs Human</button>
+                    <button class="btn-option" data-mode="ai_vs_ai">AI vs AI</button>
+                </div>
+            </div>
+
+            <!-- Player Count -->
+            <div class="setup-option">
+                <label>Players</label>
+                <div class="btn-group">
+                    <button class="btn-option active" data-players="2">2 Players</button>
+                    <button class="btn-option" data-players="3">3 Players</button>
+                    <button class="btn-option" data-players="4">4 Players</button>
+                </div>
+            </div>
+
+            <!-- AI Difficulty -->
+            <div class="setup-option" id="ai-difficulty-section">
+                <label>AI Difficulty</label>
+                <div class="btn-group">
+                    <button class="btn-option" data-difficulty="easy">Easy</button>
+                    <button class="btn-option active" data-difficulty="medium">Medium</button>
+                    <button class="btn-option" data-difficulty="hard">Hard</button>
+                </div>
+            </div>
+
+            <button id="btn-start-custom" class="btn btn-primary btn-large">
+                🚀 Start Game
+            </button>
+        </div>
+    </div>
+
+    <!-- Lobby Screen (Waiting for players) -->
+    <div id="lobby-screen" class="screen hidden">
+        <div class="lobby-container glass-panel">
+            <h2>Waiting for Players</h2>
+            <div class="room-code-display">
+                <span>Room Code:</span>
+                <span id="display-room-code" class="room-code glow-text">------</span>
+            </div>
+
+            <!-- LAN Join Info -->
+            <div id="lan-join-info" class="lan-info hidden">
+                <p>Scan to Join LAN:</p>
+                <img id="qr-code-img" src="" alt="Scan to Join" class="qr-image">
+                <p id="lan-url-text" class="lan-text"></p>
+            </div>
+
+            <div id="player-slots" class="player-slots">
+                <!-- Dynamically filled -->
+            </div>
+            <div class="lobby-actions">
+                <button id="btn-start-game" class="btn btn-primary" disabled>Start Game</button>
+                <button id="btn-ready" class="btn btn-secondary">Ready</button>
+                <button id="btn-leave-room" class="btn btn-ghost">Leave</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen hidden">
+        <div class="game-header">
+            <div class="score-display" id="scores-container">
+                <!-- Scores rendered here -->
+            </div>
+            <div id="game-status" class="game-status"></div>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="game-canvas"></canvas>
+        </div>
+
+        <!-- Touch Controls (Mobile) -->
+        <div id="touch-controls" class="touch-controls hidden">
+            <button id="touch-up" class="touch-btn">▲</button>
+            <button id="touch-down" class="touch-btn">▼</button>
+        </div>
+
+        <!-- Game Controls -->
+        <div id="game-controls" class="game-controls hidden">
+            <button id="btn-pause" class="btn btn-ghost">⏸ Pause</button>
+            <button id="btn-restart" class="btn btn-ghost">🔄 Restart</button>
+            <button id="btn-exit-game" class="btn btn-ghost">🚪 Exit</button>
+        </div>
+    </div>
+
+    <!-- Game Over Overlay -->
+    <div id="game-over-overlay" class="overlay hidden">
+        <div class="overlay-content glass-panel">
+            <h2 id="winner-text" class="glow-text">Player Wins!</h2>
+            <div id="final-scores" class="final-scores"></div>
+            <div class="overlay-buttons">
+                <button id="btn-play-again" class="btn btn-primary">Play Again</button>
+                <button id="btn-back-to-menu" class="btn btn-ghost">Main Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/input.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/lobby.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

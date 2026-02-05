@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.Line?>
+
+<StackPane fx:id="gameRoot" xmlns:fx="http://javafx.com/fxml" 
+           fx:controller="com.ponggame.controller.GameController"
+           stylesheets="@../css/styles.css" prefWidth="800" prefHeight="800">
+    
+    <AnchorPane fx:id="gamePane" prefWidth="800" prefHeight="800">
+        <Group fx:id="gameGroup" layoutX="0" layoutY="0">
+            
+            <!-- Arena Background -->
+            <Rectangle width="800" height="800" fill="#1a1a2e"/>
+            
+            <!-- Center Lines (visual dividers) -->
+            <Line startX="400" startY="0" endX="400" endY="800" 
+                  stroke="#ffffff" strokeWidth="2" opacity="0.3" strokeDashArray="10,10"/>
+            <Line startX="0" startY="400" endX="800" endY="400" 
+                  stroke="#ffffff" strokeWidth="2" opacity="0.3" strokeDashArray="10,10"/>
+            
+            <!-- Center Circle -->
+            <Circle centerX="400" centerY="400" radius="50" 
+                    fill="transparent" stroke="#ffffff" strokeWidth="2" opacity="0.3"/>
+            
+            <!-- 4 Rectangular Paddles -->
+            <!-- Player 1: Bottom (Human) - Horizontal -->
+            <Rectangle fx:id="paddle1" x="350" y="770" width="100" height="15" 
+                       fill="#00ff00" arcWidth="5" arcHeight="5"/>
+            
+            <!-- Player 2: Top (AI) - Horizontal -->
+            <Rectangle fx:id="paddle2" x="350" y="15" width="100" height="15" 
+                       fill="#ff0000" arcWidth="5" arcHeight="5"/>
+            
+            <!-- Player 3: Left (AI) - Vertical -->
+            <Rectangle fx:id="paddle3" x="15" y="350" width="15" height="100" 
+                       fill="#0000ff" arcWidth="5" arcHeight="5"/>
+            
+            <!-- Player 4: Right (AI) - Vertical -->
+            <Rectangle fx:id="paddle4" x="770" y="350" width="15" height="100" 
+                       fill="#ffff00" arcWidth="5" arcHeight="5"/>
+            
+            <!-- Ball -->
+            <Circle fx:id="ballCircle" centerX="400" centerY="400" radius="8" fill="#ffffff"/>
+            
+        </Group>
+    </AnchorPane>
+    
+    <!-- Score Labels -->
+    <Label fx:id="player1Score" text="P1: 0" 
+           style="-fx-text-fill: #00ff00; -fx-font-size: 18px; -fx-font-weight: bold;"
+           StackPane.alignment="BOTTOM_CENTER" translateY="-50"/>
+    <Label fx:id="player2Score" text="P2: 0" 
+           style="-fx-text-fill: #ff0000; -fx-font-size: 18px; -fx-font-weight: bold;"
+           StackPane.alignment="TOP_CENTER" translateY="50"/>
+    <Label fx:id="player3Score" text="P3: 0" 
+           style="-fx-text-fill: #0000ff; -fx-font-size: 18px; -fx-font-weight: bold;"
+           StackPane.alignment="CENTER_LEFT" translateX="50"/>
+    <Label fx:id="player4Score" text="P4: 0" 
+           style="-fx-text-fill: #ffff00; -fx-font-size: 18px; -fx-font-weight: bold;"
+           StackPane.alignment="CENTER_RIGHT" translateX="-50"/>
+    
+    <!-- Game Status -->
+    <Label fx:id="statusLabel" text="Press SPACE to Start" 
+           style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"
+           StackPane.alignment="CENTER"/>
+    
+</StackPane>
