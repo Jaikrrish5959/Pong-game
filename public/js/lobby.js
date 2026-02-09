@@ -10,6 +10,10 @@ class LobbyManager {
             aiDifficulty: 'medium'
         };
 
+        this.createRoomConfig = {
+            playerCount: 2
+        };
+
         this.initEventListeners();
     }
 
@@ -23,8 +27,25 @@ class LobbyManager {
             this.quickPlay(4);
         });
 
-        // Create/Join room
+        // Create/Join room - Show Setup First
         document.getElementById('btn-create-room')?.addEventListener('click', () => {
+            this.showScreen('create-room-screen');
+        });
+
+        // New Create Room Setup Logic
+        document.getElementById('btn-back-create')?.addEventListener('click', () => {
+            this.showScreen('menu-screen');
+        });
+
+        document.querySelectorAll('[data-create-players]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('[data-create-players]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.createRoomConfig.playerCount = parseInt(btn.dataset.createPlayers);
+            });
+        });
+
+        document.getElementById('btn-confirm-create')?.addEventListener('click', () => {
             this.createRoom();
         });
 
@@ -113,8 +134,9 @@ class LobbyManager {
         if (window.gameApp) {
             // Create room always opens lobby for multiplayer
             const config = {
-                ...this.config,
-                mode: 'human_vs_human' // Force multiplayer mode for room creation
+                mode: 'human_vs_human', // Force multiplayer mode for room creation
+                playerCount: this.createRoomConfig.playerCount,
+                aiDifficulty: 'medium'
             };
             window.gameApp.createRoom(config);
         }

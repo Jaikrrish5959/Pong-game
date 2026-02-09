@@ -39,7 +39,7 @@ jpackage \
   --description "Classic Pong Game" \
   --linux-shortcut
 ```
-
+how rt
 **Install**: `sudo dpkg -i ponggame_1.0_amd64.deb`
 
 ### 2. Snap Package (.snap)
