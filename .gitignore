@@ -15,5 +15,10 @@ npm-debug.log*
 .idea/
 .gemini/
 
-# Artifacts
+# Artifacts & Build directories
 target/
+out/
+build/
+.gradle/
+android-pong/.gradle/
+android-pong/build/
